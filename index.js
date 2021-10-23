@@ -62,6 +62,14 @@ app.get('/',async(req,res)=>{
 })
 
 
+app.get('/lte/:id',async(req,res)=>{
+
+ // console.log(JSON.stringify(req.query))
+  res.send(JSON.stringify(req.query))
+ 
+})
+
+
 app.get('/mc',async(req,res)=>{
 
   MongoClient.connect(url, function(err, db) {
