@@ -57,17 +57,22 @@ async function connectToDatabase(){
 
 app.get('/',async(req,res)=>{
 
-    res.send('Hello World!');
+    res.send('Welcome to Rail Pulse');
    
 })
 
 
-app.get('/coaches',async(req,res)=>{
+app.get('/mc',async(req,res)=>{
 
-    const db = await connectToDatabase();
-    const collection = await db.collection("coaches").find({}).toArray();
-    res.send('Hello World!');
-    console.log(collection)
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db(db_name);
+    dbo.collection(collection_name).find({}).toArray(function(err, resp) {
+      if (err) throw err;
+      res.send({resp})
+      db.close();
+    });
+  });
 })
 
   // create
