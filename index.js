@@ -13,6 +13,8 @@ const db_name ="Coaches";
 const collection_name ="coaches"
 let responses = null ;
 
+let lteData = {}
+
 // Create a new collection
 
  function createMyCollection(collection_name,db_name){
@@ -62,10 +64,19 @@ app.get('/',async(req,res)=>{
 })
 
 
+app.get('/data',async(req,res)=>{
+
+  res.send(lteData);
+ 
+})
+
+
 app.get('/lte/:id',async(req,res)=>{
 
  // console.log(JSON.stringify(req.query))
+ lteData = JSON.stringify(req.query)
   res.send(JSON.stringify(req.query))
+
  
 })
 
