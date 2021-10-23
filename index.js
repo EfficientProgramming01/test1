@@ -84,7 +84,7 @@ app.get('/mc',async(req,res)=>{
         if (err) throw err;
         var dbo = db.db(db_name);
         var myobj = new_Data;
-       return dbo.collection(collection_name).insertOne(myobj, function(err, resp) {
+        dbo.collection(collection_name).insertOne(myobj, function(err, resp) {
           if (err) throw err;
            res.send({resp})
           db.close();
@@ -112,6 +112,24 @@ app.put('/mc',async(req,res)=>{
         });
       });
   
+}) 
+
+
+// Delete specific data in the database
+
+app.delete('/mc',async(req,res)=>{
+  const query_Data = req.body.query_Data
+  MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db(db_name);
+      var myobj = query_Data;
+     dbo.collection(collection_name).deleteOne(myobj, function(err, resp) {
+        if (err) throw err;
+         res.send({resp})
+        db.close();
+        
+      });
+    });
 }) 
 
 
